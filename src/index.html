@@ -23,10 +23,24 @@ return
         document.cookie = name + "=" + value + expires + "; path=/";
       }
 
+      function getCookie(name) {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+          var cookie = cookies[i].trim();
+          if (cookie.startsWith(name + '=')) {
+            return cookie.substring(name.length + 1);
+          }
+        }
+        return null;
+      }
 
 
       setCookie('rgpd', event.data, 7);
       console.log('Message reçu de l\'iframe :', event.data);
+
+      const  cookie = getCookie('rgpd');
+
+      debugger;
     });
   </script>
 
