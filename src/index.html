@@ -6,6 +6,20 @@
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <script>
+    // Écouter les messages provenant de l'iframe
+    window.addEventListener('message', function(event) {
+      if (event.origin !== 'https://rgpb-parent.vercel.app/') {
+return
+      }
+      document.cookie = 'rgpd' + "=" + event.data;
+      // Faire quelque chose avec le message reçu de l'iframe
+      console.log('Message reçu de l\'iframe :', event.data);
+    });
+  </script>
+
+
 </head>
 <body>
   <app-root></app-root>
