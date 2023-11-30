@@ -1,21 +1,27 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TarteaucitronService} from "./tarteaucitron.service";
-import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'migration15';
 
-  constructor(public tarteaucitronService :TarteaucitronService,    private readonly cookieService: CookieService) {
+  public hasRGPDCheck = false
 
-    this.tarteaucitronService.initTarteaucitron();
-
- const a = this.cookieService.get('rgpd');
-      const b = localStorage.getItem("rgpd");
- debugger;
+  constructor(public tarteaucitronService :TarteaucitronService) {
+      debugger
+      this.hasRGPDCheck  = localStorage.getItem("rgpd") === 'true';
   }
+
+    ngOnInit(): void {
+debugger
+        if(!this.hasRGPDCheck){
+            this.tarteaucitronService.initTarteaucitron();
+        }
+
+
+    }
 }
