@@ -13,6 +13,8 @@ export class AppComponent implements OnInit{
 
   public hasRGPDCheck = false
 
+    public stopInterval = false
+
   constructor(public tarteaucitronService :TarteaucitronService,     private activatedRoute: ActivatedRoute,) {
       this.hasRGPDCheck  = localStorage.getItem("rgpd") === 'true';
   }
@@ -21,10 +23,13 @@ export class AppComponent implements OnInit{
 
         this.activatedRoute.queryParams.subscribe(params => {
             debugger
-const needDisplayPrivacy = params['privacy'] === 'true'
-            if(needDisplayPrivacy){
+const needDisplayPrivacy = params['privacy'] === 'false';
+            if(!needDisplayPrivacy){
+                return;
+            }else {
                 this.tarteaucitronService.initTarteaucitron();
             }
+
 
         })
     }
