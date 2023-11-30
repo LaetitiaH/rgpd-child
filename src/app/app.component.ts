@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {TarteaucitronService} from "./tarteaucitron.service";
 import {ActivatedRoute} from "@angular/router";
-import {first} from "rxjs";
+import {first, skip} from "rxjs";
 
 @Component({
   selector: 'app-root',
@@ -13,18 +13,16 @@ export class AppComponent implements OnInit{
 
   public hasRGPDCheck = false
 
-    public stopInterval = false
 
   constructor(public tarteaucitronService :TarteaucitronService,     private activatedRoute: ActivatedRoute,) {
       this.hasRGPDCheck  = localStorage.getItem("rgpd") === 'true';
   }
 
     ngOnInit(): void {
-
-        this.activatedRoute.queryParams.subscribe(params => {
+        this.activatedRoute.queryParams.pipe(skip(1)).subscribe(params => {
             debugger
-const needDisplayPrivacy = params['privacy'] === 'false';
-            if(!needDisplayPrivacy){
+const noDisplayPrivacy = params['privacy'] && params['privacy'] === 'false';
+            if(noDisplayPrivacy === true){
                 return;
             }else {
                 this.tarteaucitronService.initTarteaucitron();
