@@ -21,7 +21,7 @@ export class AppComponent implements OnInit{
 
         this.activatedRoute.queryParams.subscribe(params => {
             debugger
-const needDisplayPrivacy = params['privacy'] === 'false'
+const needDisplayPrivacy = params['privacy'] === 'true'
             if(needDisplayPrivacy){
                 this.tarteaucitronService.initTarteaucitron();
             }
