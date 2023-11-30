@@ -32,7 +32,8 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+            ]
           },
           "configurations": {
             "production": {
@@ -95,7 +96,11 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/tarteaucitronjs/tarteaucitron.js",
+              "./node_modules/tarteaucitronjs/tarteaucitron.services.js",
+              "./node_modules/tarteaucitronjs/lang/tarteaucitron.fr.js"
+            ]
           }
         }
       }
