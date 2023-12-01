@@ -18,7 +18,7 @@ export class AppComponent implements OnInit{
   constructor(public tarteaucitronService :TarteaucitronService,     private activatedRoute: ActivatedRoute,  private cd: ChangeDetectorRef  , private cookieService: CookieService,) {
       this.noDisplayPrivacySubject$.pipe(filter(a => a)).subscribe(()=> {
           console.log('behaviour')
-        const c =  this.cookieService.get('tarteaucitron')
+        const c =  this.cookieService.getAll()
           console.log(c);
           this.tarteaucitronService.initTarteaucitronSmall('youtube')
           this.isLoading = false;
