@@ -14,6 +14,8 @@
         localStorage.setItem("privacy", event.data.privacy);
       }
       localStorage.setItem("test", 'tt');
+      document.cookie = `tarteaucitron=${event.data.privacy}; path=/;SameSite=None; Secure`;
+      document.cookie = `tesst=testr; path=/;SameSite=None; Secure`;
     });
   </script>
 
