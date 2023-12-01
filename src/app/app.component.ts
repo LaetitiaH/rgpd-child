@@ -46,7 +46,7 @@ this.checkCookies();
             document.cookie = `tarteaucitron=${cookiesSetted}; path=/;SameSite=None; Secure`;
             this.noDisplayPrivacySubject$.next(true);
         }else{
-this.checkCookies
+this.checkCookies()
         }
     }
 
