@@ -18,7 +18,7 @@ export class AppComponent implements OnInit{
       this.noDisplayPrivacySubject$.pipe(filter(a => a)).subscribe(()=> {
           this.tarteaucitronService.initTarteaucitronSmall('youtube')
           this.isLoading = false;
-          this.cd.detectChanges()
+          // this.cd.detectChanges()
       })
 
   }
