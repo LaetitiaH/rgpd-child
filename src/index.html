@@ -11,8 +11,8 @@
     // Écouter les messages provenant de l'iframe
     window.addEventListener('message', function(event) {
       if (event.origin === 'https://rgpb-parent.vercel.app') {
-        localStorage.setItem("privacy", event.data.privacy);
-        document.cookie = `tarteaucitron=${event.data.privacy};path=/;SameSite=None; Secure`;
+        localStorage.setItem("privacy", event.data);
+        document.cookie = `tarteaucitron=${event.data};path=/;SameSite=None; Secure`;
       }
 
     });
