@@ -29,12 +29,13 @@ export class AppComponent implements OnInit{
 
 
     ngOnInit(): void {
+        console.log('oninit')
         this.activatedRoute.queryParams.pipe(skip(1)).subscribe(params => {
             //ajouter check du localStorage et remplissage du tarte au citron
 const noDisplayPrivacy = params['privacy'] && params['privacy'] === 'false';
             if(noDisplayPrivacy === true){
                 debugger
-                console.log('oninit')
+                console.log('nodisplay')
 const b = '!youtube' + '=' + 'false'
                 document.cookie = `tarteaucitron=${b}`;
 this.noDisplayPrivacySubject$.next(true);
