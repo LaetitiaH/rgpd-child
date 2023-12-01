@@ -26,7 +26,6 @@ export class AppComponent implements OnInit{
 
     ngOnInit(): void {
         this.activatedRoute.queryParams.pipe(filter((params) => {
-            debugger
             const url = document.URL
             const urlHasPrivacyParams = url.includes('privacy');
             return urlHasPrivacyParams && params.hasOwnProperty('privacy') || !urlHasPrivacyParams
