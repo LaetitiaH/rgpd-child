@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {TarteaucitronService} from "./tarteaucitron.service";
 import {ActivatedRoute} from "@angular/router";
-import {first, skip} from "rxjs";
+import {BehaviorSubject, filter, skip} from "rxjs";
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-root',
@@ -10,25 +11,35 @@ import {first, skip} from "rxjs";
 })
 export class AppComponent implements OnInit{
   title = 'migration15';
+  isLoading = true;
 
-  public hasRGPDCheck = false
+    public noDisplayPrivacySubject$ = new BehaviorSubject<boolean>(false);
 
+  constructor(public tarteaucitronService :TarteaucitronService,     private activatedRoute: ActivatedRoute,  private cd: ChangeDetectorRef) {
+      this.noDisplayPrivacySubject$.pipe(filter(a => a)).subscribe(()=> {
+          this.tarteaucitronService.initTarteaucitronSmall('youtube')
+          this.isLoading = false;
+          this.cd.detectChanges()
+      })
 
-  constructor(public tarteaucitronService :TarteaucitronService,     private activatedRoute: ActivatedRoute,) {
-      this.hasRGPDCheck  = localStorage.getItem("rgpd") === 'true';
   }
+
 
     ngOnInit(): void {
         this.activatedRoute.queryParams.pipe(skip(1)).subscribe(params => {
-            debugger
+            //ajouter check du localStorage et remplissage du tarte au citron
 const noDisplayPrivacy = params['privacy'] && params['privacy'] === 'false';
             if(noDisplayPrivacy === true){
-                return;
+                debugger
+const b = '!youtube' + '=' + 'false'
+                document.cookie = `tarteaucitron=${b}`;
+this.noDisplayPrivacySubject$.next(true);
+
             }else {
-                this.tarteaucitronService.initTarteaucitron();
+                this.tarteaucitronService.initTarteaucitron('youtube');
+                this.isLoading = false;
             }
-
-
         })
     }
+
 }

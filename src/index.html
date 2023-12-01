@@ -10,14 +10,11 @@
   <script>
     // Écouter les messages provenant de l'iframe
     window.addEventListener('message', function(event) {
-debugger
-      if(event.AT_TARGET === 'alea'){
-        console.log('source')
-      }
 
       if (event.origin === 'https://rgpb-parent.vercel.app') {
         localStorage.setItem("rgpd", event.data);
 
+        debugger
         console.log('Message reçu de l\'iframe :', event.data);
       }
 
