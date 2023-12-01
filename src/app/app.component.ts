@@ -19,7 +19,7 @@ export class AppComponent implements OnInit{
       this.noDisplayPrivacySubject$.pipe(filter(a => a)).subscribe(()=> {
           console.log('behaviour')
         const c =  this.cookieService.get('tarteaucitron')
-          console.log(c)
+          console.log(c);
           this.tarteaucitronService.initTarteaucitronSmall('youtube')
           this.isLoading = false;
           this.cd.detectChanges()
@@ -37,7 +37,8 @@ const noDisplayPrivacy = params['privacy'] && params['privacy'] === 'false';
                 debugger
                 console.log('nodisplay')
 const b = '!youtube' + '=' + 'false'
-                document.cookie = `tarteaucitron=${b}`;
+                document.cookie = `tarteaucitron=${b}; path=/`;
+                console.log(b)
 this.noDisplayPrivacySubject$.next(true);
 
             }else {
