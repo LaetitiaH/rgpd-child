@@ -17,9 +17,6 @@ export class AppComponent implements OnInit{
 
   constructor(public tarteaucitronService :TarteaucitronService,     private activatedRoute: ActivatedRoute,  private cd: ChangeDetectorRef  , private cookieService: CookieService,) {
       this.noDisplayPrivacySubject$.pipe(filter(a => a)).subscribe(()=> {
-          console.log('behaviour')
-        const c =  this.cookieService.getAll()
-          console.log(c);
           this.tarteaucitronService.initTarteaucitronSmall('youtube')
           this.isLoading = false;
           this.cd.detectChanges()
@@ -34,11 +31,8 @@ export class AppComponent implements OnInit{
             //ajouter check du localStorage et remplissage du tarte au citron
 const noDisplayPrivacy = params['privacy'] && params['privacy'] === 'false';
             if(noDisplayPrivacy === true){
-                debugger
-                console.log('nodisplay')
-const b = '!youtube' + '=' + 'false'
+const b = '!youtube' + '=' + 'true'
                 document.cookie = `tarteaucitron=${b}; path=/;SameSite=None; Secure`;
-                console.log(b)
 this.noDisplayPrivacySubject$.next(true);
 
             }else {
