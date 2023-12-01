@@ -41,9 +41,9 @@ this.checkCookies();
     }
 
     private checkCookies(): void {
-        const cookiesSetted = localStorage.getItem('privacy')|| ''
+        // JSON.parse(localStorage.getItem('privacy')
+        const cookiesSetted = ''
         if(cookiesSetted.length){
-            const b = '!youtube' + '=' + 'true'
             document.cookie = `tarteaucitron=${cookiesSetted}; path=/;SameSite=None; Secure`;
             this.noDisplayPrivacySubject$.next(true);
         }else{
