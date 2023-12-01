@@ -32,8 +32,7 @@ export class AppComponent implements OnInit{
             //ajouter check du localStorage et remplissage du tarte au citron
 const noDisplayPrivacy = params['privacy'] && params['privacy'] === 'false';
             if(noDisplayPrivacy === true){
-// this.checkCookies();
-                return
+this.checkCookies();
             }else {
                 this.tarteaucitronService.initTarteaucitron('youtube');
                 this.isLoading = false;
@@ -46,6 +45,7 @@ const noDisplayPrivacy = params['privacy'] && params['privacy'] === 'false';
         if(cookiesSetted.length){
             document.cookie = `tarteaucitron=${cookiesSetted}; path=/;SameSite=None; Secure`;
             this.noDisplayPrivacySubject$.next(true);
+            return;
         }else{
 this.checkCookies()
         }
