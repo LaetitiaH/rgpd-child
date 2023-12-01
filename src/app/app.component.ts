@@ -1,8 +1,7 @@
-import {AfterViewInit, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {TarteaucitronService} from "./tarteaucitron.service";
-import {ActivatedRoute} from "@angular/router";
-import {BehaviorSubject, filter, skip} from "rxjs";
-import {CookieService} from "ngx-cookie-service";
+import {ActivatedRoute, Router} from "@angular/router";
+import {BehaviorSubject, filter, first, skip} from "rxjs";
 
 @Component({
   selector: 'app-root',
@@ -15,7 +14,7 @@ export class AppComponent implements OnInit{
 
     public noDisplayPrivacySubject$ = new BehaviorSubject<boolean>(false);
 
-  constructor(public tarteaucitronService :TarteaucitronService,     private activatedRoute: ActivatedRoute,  private cd: ChangeDetectorRef  , private cookieService: CookieService,) {
+  constructor(public tarteaucitronService :TarteaucitronService,     private activatedRoute: ActivatedRoute,  private cd: ChangeDetectorRef  ,   private router: Router) {
       this.noDisplayPrivacySubject$.pipe(filter(a => a)).subscribe(()=> {
           this.tarteaucitronService.initTarteaucitronSmall('youtube')
           this.isLoading = false;
@@ -26,8 +25,12 @@ export class AppComponent implements OnInit{
 
 
     ngOnInit(): void {
-        console.log('oninit')
-        this.activatedRoute.queryParams.pipe(skip(1)).subscribe(params => {
+        this.activatedRoute.queryParams.pipe(filter((params) => {
+            debugger
+            const url = document.URL
+            const urlHasPrivacyParams = url.includes('privacy');
+            return urlHasPrivacyParams && params.hasOwnProperty('privacy') || !urlHasPrivacyParams
+        }), first()).subscribe(params => {
             //ajouter check du localStorage et remplissage du tarte au citron
 const noDisplayPrivacy = params['privacy'] && params['privacy'] === 'false';
             if(noDisplayPrivacy === true){
