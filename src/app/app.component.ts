@@ -37,7 +37,7 @@ const noDisplayPrivacy = params['privacy'] && params['privacy'] === 'false';
                 debugger
                 console.log('nodisplay')
 const b = '!youtube' + '=' + 'false'
-                document.cookie = `tarteaucitron=${b}; path=/`;
+                document.cookie = `tarteaucitron=${b}; path=/;SameSite=None; Secure`;
                 console.log(b)
 this.noDisplayPrivacySubject$.next(true);
 
