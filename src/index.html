@@ -10,16 +10,9 @@
   <script>
     // Écouter les messages provenant de l'iframe
     window.addEventListener('message', function(event) {
-
-      if (event.origin === 'https://rgpb-parent.vercel.app') {
-        console.log(event.source, event.data, event.origin)
-        localStorage.setItem("rgpd", event.data);
-
-        debugger
-        console.log('Message reçu de l\'iframe :', event.data);
+      if (event.origin === 'https://rgpb-parent.vercel.app' && event.data.type === 'privacy' ) {
+        localStorage.setItem("privacy", event.data.privacy);
       }
-
-
     });
 
   </script>

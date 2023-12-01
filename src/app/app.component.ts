@@ -14,11 +14,10 @@ export class AppComponent implements OnInit{
 
     public noDisplayPrivacySubject$ = new BehaviorSubject<boolean>(false);
 
-  constructor(public tarteaucitronService :TarteaucitronService,     private activatedRoute: ActivatedRoute,  private cd: ChangeDetectorRef  ,   private router: Router) {
+  constructor(public tarteaucitronService :TarteaucitronService,     private activatedRoute: ActivatedRoute,) {
       this.noDisplayPrivacySubject$.pipe(filter(a => a)).subscribe(()=> {
           this.tarteaucitronService.initTarteaucitronSmall('youtube')
           this.isLoading = false;
-          // this.cd.detectChanges()
       })
 
   }
@@ -33,10 +32,7 @@ export class AppComponent implements OnInit{
             //ajouter check du localStorage et remplissage du tarte au citron
 const noDisplayPrivacy = params['privacy'] && params['privacy'] === 'false';
             if(noDisplayPrivacy === true){
-const b = '!youtube' + '=' + 'true'
-                document.cookie = `tarteaucitron=${b}; path=/;SameSite=None; Secure`;
-this.noDisplayPrivacySubject$.next(true);
-
+this.checkCookies();
             }else {
                 this.tarteaucitronService.initTarteaucitron('youtube');
                 this.isLoading = false;
@@ -44,4 +40,16 @@ this.noDisplayPrivacySubject$.next(true);
         })
     }
 
+    private checkCookies(): void {
+        const cookiesSetted = localStorage.getItem('privacy')|| ''
+        if(cookiesSetted.length){
+            const b = '!youtube' + '=' + 'true'
+            document.cookie = `tarteaucitron=${cookiesSetted}; path=/;SameSite=None; Secure`;
+            this.noDisplayPrivacySubject$.next(true);
+        }else{
+this.checkCookies
+        }
+    }
+
 }
+
